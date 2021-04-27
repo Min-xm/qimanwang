@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.qimanwang.mapper.CommentTwoMapper">
+  <resultMap id="BaseResultMap" type="com.xm.qimanwang.entity.CommentTwo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pId" jdbcType="BIGINT" property="pid" />
+    <result column="articleId" jdbcType="BIGINT" property="articleid" />
+    <result column="answerId" jdbcType="INTEGER" property="answerid" />
+    <result column="answerName" jdbcType="INTEGER" property="answername" />
+    <result column="respondentId" jdbcType="INTEGER" property="respondentid" />
+    <result column="respondentName" jdbcType="INTEGER" property="respondentname" />
+    <result column="commentDate" jdbcType="VARCHAR" property="commentdate" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.qimanwang.entity.CommentTwo">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+
+  <select id="getCommentOneById" resultMap="ResultMapWithBLOBs" parameterType="long">
+    select * from comment_two where articleId = #{articleid} and ISNULL(`respondentId`)
+  </select>
+
+  <select id="getCommentTwoById" resultMap="ResultMapWithBLOBs" parameterType="long">
+    select * from comment_two where articleId = #{articleid} and !ISNULL(`respondentId`)
+  </select>
+
+  <insert id="addCommentOne">
+    insert into comment_two(pId,articleId,answerId,answerName,content,commentDate)
+    value(#{pid},#{articleid},#{answerid},#{answername},#{content},#{commentdate})
+  </insert>
+
+  <insert id="addCommentTwo">
+    insert into comment_two(pId,articleId,answerId,answerName,content,commentDate,respondentId,respondentName)
+    value(#{pid},#{articleid},#{answerid},#{answername},#{content},#{commentdate},#{respondentid},#{respondentname})
+  </insert>
+
+</mapper>

@@ -1,0 +1,55 @@
+server:
+  port: 7701
+spring:
+  application:
+    name: cloud-provider-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.25.216.140:8848
+      config:
+        server-addr: 120.25.216.140:8848
+        file-extension: yaml #指定yaml格式的配置
+#  session:
+#    store-type: redis
+#    redis:
+#      flush-mode: on_save
+#      namespace: session
+#  redis:
+#    host: 120.25.216.140
+#    port: 6379
+#    database: 1
+#    jedis:
+#      pool:
+#        max-wait: 3000
+#        max-active: 50
+#        max-idle: 20
+#        min-idle: 2
+#    lettuce:
+#      shutdown-timeout: 5000
+#    password: 123456
+#  thymeleaf:
+#    cache: false
+
+
+#---------以下配置均配置进入nacos配置中心----------#
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8080
+#        port: 8719
+
+#  datasource:
+#    username: user2
+#    password: 2590868
+#    url: jdbc:mysql://120.25.216.140:3306/comic
+#    driver-class-name: com.mysql.jdbc.Driver
+#mybatis:
+#  config-location: classpath:mybatis/mybatisConfig.xml
+#  mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

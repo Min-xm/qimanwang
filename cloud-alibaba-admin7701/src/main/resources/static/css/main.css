@@ -1,0 +1,33 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+}
+
+.main {
+/*   max-height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+  position: relative; */
+}
+.container {
+  background: #0fb8ad;
+/*     background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.3), rgba(14, 135, 113, 0.9)), rgb(15, 184, 173); */
+  height: 1000px;
+}
+
+.window {
+/*     background: url(http://pngimg.com/uploads/window/window_PNG17689.png);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    background-position: center; */
+}

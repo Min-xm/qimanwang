@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>柒夜动漫注册</title>
+  <link rel="stylesheet" href="http://localhost:8801/css/style.css">
+  <!--<link rel="stylesheet" href="../static/css/style.css">-->
+
+  <script src="http://localhost:8801/js/jquery-3.4.1.js"></script>
+</head>
+
+<style>
+  #returnInfo{
+    position: fixed;
+    bottom: 50px;
+    font-size: 50px;
+    color: red;
+  }
+
+</style>
+
+<body>
+<main>
+  <form class="form" action="/registerUser" method="post">
+    <div class="form__cover"></div>
+    <div class="form__loader">
+      <div class="spinner active">
+        <svg class="spinner__circular" viewBox="25 25 50 50">
+          <circle class="spinner__path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"></circle>
+        </svg>
+      </div>
+    </div>
+    <div class="form__content">
+      <h1>NewAuthorization</h1>
+      <div class="styled-input">
+        <input type="text" class="styled-input__input" name="username" autocomplete="off">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">用户名</span> </div>
+        <div class="styled-input__circle"></div>
+      </div>
+      <div class="styled-input">
+        <input type="password" class="styled-input__input" name="password" autocomplete="off">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">密码</span> </div>
+        <div class="styled-input__circle"></div>
+      </div>
+      <div class="styled-input">
+        <input type="password" class="styled-input__input" name="passwordAgain" autocomplete="off">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">再次输入密码</span> </div>
+        <div class="styled-input__circle"></div>
+      </div>
+      <div class="styled-input">
+        <input type="text" class="styled-input__input" name="phone" autocomplete="off">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">手机号</span> </div>
+        <div class="styled-input__circle"></div>
+      </div>
+      <button type="submit" class="styled-button"> <span class="styled-button__real-text-holder"> <span class="styled-button__real-text">Register</span> <span class="styled-button__moving-block face"> <span class="styled-button__text-holder"> <span class="styled-button__text">Register</span> </span> </span><span class="styled-button__moving-block back"> <span class="styled-button__text-holder"> <span class="styled-button__text">Register</span> </span> </span> </span> </button>
+    </div>
+  </form>
+  <span id="returnInfo" th:text="${returnInfo}"></span>
+</main>
+<script  src="http://localhost:8801/js/login.js"></script>
+<!--<script  src="../static/js/login.js"></script>-->
+
+<script type="text/javascript">
+
+  //提示手机号不能为空或手机号格式
+  function checkMobile(str) {
+    if(str==""){
+      alert("手机号不能为空！");
+    }
+    else{
+      let re = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str)
+      if (!re) {
+        alert("⊙ω⊙请输入正确的手机格式⊙ω⊙");
+      }
+    }
+  }
+
+  //提示手机号不能为空或手机号格式
+  function checkPassWord(str) {
+    if(str==""){
+      alert("密码不能为空！");
+    }
+  }
+
+
+
+</script>
+
+</body>
+</html>

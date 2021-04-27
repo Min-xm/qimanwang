@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- img标签访问图片时返回403 forbidden的问题 -->
+    <meta name="referrer" content="no-referrer" />
+
+    <title>GM-Angular</title>
+    <link type="text/css" rel="stylesheet" href="http://develop.lovejavascript.com/node_modules/gridmanager-angular-1.x/css/gm-angular.css"/>
+    <link type="text/css" rel="stylesheet" href="http://localhost:9901/css/common.css"/>
+
+    <script src="http://localhost:9901/js/jquery-3.4.1.js"></script>
+
+</head>
+
+
+<body>
+    <div class="search-area">
+        <div class="sa-ele">
+            <label class="se-title">标题:</label>
+            <input class="se-con ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchForm.title">
+        </div>
+        <div class="sa-ele">
+            <label class="se-title">文章分类:</label>
+            <select class="se-con ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="searchForm.type">
+                <option value="-1">请选择</option>
+                <!-- ngRepeat: item in TYPE_MAP track by $index -->
+                <option value="1" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">动漫资讯</option>
+                <!-- end ngRepeat: item in TYPE_MAP track by $index -->
+                <option value="2" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">图集</option>
+                <!-- end ngRepeat: item in TYPE_MAP track by $index -->
+                <option value="3" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope" selected="selected">游戏</option>
+                <!-- end ngRepeat: item in TYPE_MAP track by $index -->
+                <option value="4" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">音声</option>
+                <!-- end ngRepeat: item in TYPE_MAP track by $index -->
+                <option value="5" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">漫画</option>
+                <!-- end ngRepeat: item in TYPE_MAP track by $index -->
+                <option value="6" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">轻小说</option>
+                <!-- end ngRepeat: item in TYPE_MAP track by $index -->
+            </select>
+        </div>
+        <div class="sa-ele">
+            <label class="se-title">内容:</label>
+            <input class="se-con ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchForm.content">
+        </div>
+        <div class="sa-ele">
+            <button class="search-action" ng-click="onSearch()">搜索</button>
+            <button class="reset-action" ng-click="onReset()">重置</button>
+        </div>
+    </div>
+
+    <div class="grid-main">
+        <div class="table-wrap" grid-manager-wrap="testAngular" style="width: calc(100%); height: calc(100%); padding-top: 40px;">
+            <div class="table-header" style="height: 40px;"></div>
+            <div class="table-div" grid-manager-div="testAngular" gm-overflow-x="false" style="height: calc(100% - 40px);">
+                <table grid-manager="testAngular" style="margin-top: -40px;" class="gm-ready">
+                    <thead grid-manager-thead="testAngular">
+                        <tr style="height: 39px;">
+                            <th th-name="gm_checkbox" style="width:40px" gm-create="" gm-checkbox=""></th>
+                            <th th-name="gm_order" style="width:50px" gm-create="" gm-order=""></th>
+                            <th th-name="pic" style="width:110px" align="center" remind=""></th>
+                            <th th-name="title" style="width:404px" align="left" sorting="" remind=""></th>
+                            <th th-name="type" style="width:150px" align="center" sorting="" filter="" remind=""></th>
+                            <th th-name="info" style="width:300px" remind=""></th><th th-name="username" style="width:100px" align="center" remind=""></th>
+                            <th th-name="createDate" style="width:130px" sorting="DESC"></th><th th-name="lastDate" style="width:130px" sorting=""></th>
+                            <th th-name="action" style="width:100px" align="center" remind="" last-visible=""></th>
+                        </tr>
+                    </thead>
+                    <tbody id="articleData" grid-manager-tbody="testAngular" filled="">
+
+
+
+                        <tr gm-cache-key="0" checked="false">
+                                <td gm-create="" gm-checkbox="">
+                                    <label class="gm-checkbox-wrapper">
+                                        <span class="gm-radio-checkbox gm-checkbox">
+                                            <input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input">
+                                            <span class="gm-radio-checkbox-inner gm-checkbox-inner"></span>
+                                        </span>
+                                    </label>
+                                </td>
+                                <td gm-create="" gm-order="">1</td>
+                                <td align="center" class="ng-scope">
+                                    <a target="_blank" style="display:block; height:58.5px;" title="点击阅读[表格组件实现打印功能]" >
+                                        <img style="width:90px;margin:0 auto;" ng-src="https://www.lovejavascript.com//upload/blog/pic/4746_1602504257005.png" alt="表格组件实现打印功能" src="https://www.lovejavascript.com//upload/blog/pic/4746_1602504257005.png">
+                                    </a>
+                                </td>
+                                <td align="left" class="ng-scope">
+                                    <a class="plugin-action ng-binding" target="_blank"  title="点击阅读[表格组件实现打印功能]" >表格组件实现打印功能</a>
+                                </td>
+                                <td align="center" class="ng-scope">
+                                    <button type="button" class="ng-binding">javaScript</button>
+                                </td>
+                                <td>这是一个不是很常用的功能，但却是在不经意间提升用户体验。</td>
+                                <td align="center" class="ng-scope">
+                                    <a class="plugin-action ng-binding" target="_blank" title="去看看写个程序换个饼的github">写个程序换个饼</a>
+                                </td>
+                                <td class="ng-scope">2020/10/12</td>
+                                <td class="ng-scope">2020/10/12</td>
+                                <td align="center" class="ng-scope" last-visible="">
+                                    <span class="plugin-action">修改</span>
+                                    <span class="plugin-action">删除</span>
+                                </td>
+                            </tr>
+
+
+
+                        </tbody>
+
+                        <thead grid-manager-mock-thead="testAngular" style="left: 0px; width: 1513px;">
+                            <tr style="height: 39px;">
+
+                                <th th-name="gm_checkbox" style="width: 40px; max-width: 40px;" gm-create="" gm-checkbox="">
+                                    <div class="th-wrap">
+                                        <span class="th-text">
+                                            <label class="gm-checkbox-wrapper">
+                                                <span class="gm-radio-checkbox gm-checkbox">
+                                                    <input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input">
+                                                    <span class="gm-radio-checkbox-inner gm-checkbox-inner"></span>
+                                                </span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </th>
+
+                                <th th-name="gm_order" style="width: 50px; max-width: 50px;" gm-create="" gm-order="">
+                                    <div class="th-wrap">
+                                        <span class="th-text">序号</span>
+                                    </div>
+                                </th>
+
+                                <th th-name="pic" style="width: 109px; max-width: 109px;" align="center" remind="">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">缩略图</span>
+                                        <div class="gm-remind-action"><i class="ra-icon gm-icon gm-icon-help"></i><div class="ra-area">the pic</div></div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="title" style="width: 404px; max-width: 404px;" align="left" sorting="" remind="">
+                                    <div class="th-wrap"><span class="th-text gm-drag-action ng-scope">标题</span>
+                                        <div class="gm-remind-action">
+                                            <i class="ra-icon gm-icon gm-icon-help"></i>
+                                            <div class="ra-area">the title</div>
+                                        </div>
+                                        <div class="gm-sorting-action"><i class="sa-icon sa-up gm-icon gm-icon-up"></i>
+                                            <i class="sa-icon sa-down gm-icon gm-icon-down"></i>
+                                        </div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="type" style="width: 149px; max-width: 149px;" align="center" sorting="" filter="" remind="">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">博文分类</span>
+                                        <div class="gm-remind-action"><i class="ra-icon gm-icon gm-icon-help"></i><div class="ra-area">the type</div>
+                                        </div>
+                                        <div class="gm-sorting-action"><i class="sa-icon sa-up gm-icon gm-icon-up"></i><i class="sa-icon sa-down gm-icon gm-icon-down"></i></div>
+                                        <div class="gm-filter-area"><i class="fa-icon gm-icon gm-icon-filter filter-selected"></i>
+                                            <div class="fa-con">
+                                                <ul class="filter-list" style="max-height: 498px">
+                                                    <li class="filter-checkbox"><label class="gm-checkbox-wrapper"><span class="gm-radio-checkbox gm-checkbox"><input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input" value="1"><span class="gm-radio-checkbox-inner gm-checkbox-inner"></span></span><span class="gm-radio-checkbox-label">动漫资讯</span></label></li>
+                                                    <li class="filter-checkbox"><label class="gm-checkbox-wrapper"><span class="gm-radio-checkbox gm-checkbox"><input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input" value="2" ><span class="gm-radio-checkbox-inner gm-checkbox-inner"></span></span><span class="gm-radio-checkbox-label">图集</span></label></li>
+                                                    <li class="filter-checkbox"><label class="gm-checkbox-wrapper"><span class="gm-radio-checkbox gm-checkbox gm-checkbox-checked"><input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input" value="3" ><span class="gm-radio-checkbox-inner gm-checkbox-inner"></span></span><span class="gm-radio-checkbox-label">游戏</span></label></li>
+                                                    <li class="filter-checkbox"><label class="gm-checkbox-wrapper"><span class="gm-radio-checkbox gm-checkbox"><input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input" value="4" checked="true"><span class="gm-radio-checkbox-inner gm-checkbox-inner"></span></span><span class="gm-radio-checkbox-label">音声</span></label></li>
+                                                    <li class="filter-checkbox"><label class="gm-checkbox-wrapper"><span class="gm-radio-checkbox gm-checkbox"><input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input" value="5"><span class="gm-radio-checkbox-inner gm-checkbox-inner"></span></span><span class="gm-radio-checkbox-label">漫画</span></label></li>
+                                                    <li class="filter-checkbox"><label class="gm-checkbox-wrapper"><span class="gm-radio-checkbox gm-checkbox"><input type="checkbox" class="gm-radio-checkbox-input gm-checkbox-input" value="6"><span class="gm-radio-checkbox-inner gm-checkbox-inner"></span></span><span class="gm-radio-checkbox-label">轻小说</span></label></li>
+                                                </ul>
+                                                <div class="filter-bottom"><span class="filter-button filter-submit">确定</span><span class="filter-button filter-reset">重置</span></div>
+                                            </div>
+                                        </div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="info" style="width: 300px; max-width: 300px;" remind="">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">简介</span>
+                                        <div class="gm-remind-action">
+                                            <i class="ra-icon gm-icon gm-icon-help"></i>
+                                            <div class="ra-area">the info</div>
+                                        </div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="username" style="width: 100px; max-width: 100px;" align="center" remind="">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">作者</span>
+                                        <div class="gm-remind-action">
+                                            <i class="ra-icon gm-icon gm-icon-help"></i>
+                                            <div class="ra-area">the username</div>
+                                        </div><span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="createDate" style="width: 129px; max-width: 129px;" sorting="DESC">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">创建时间</span>
+                                        <div class="gm-sorting-action sorting-down">
+                                            <i class="sa-icon sa-up gm-icon gm-icon-up"></i>
+                                            <i class="sa-icon sa-down gm-icon gm-icon-down"></i>
+                                        </div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="lastDate" style="width: 129px; max-width: 129px;" sorting="">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">最后修改时间</span>
+                                        <div class="gm-sorting-action">
+                                            <i class="sa-icon sa-up gm-icon gm-icon-up"></i>
+                                            <i class="sa-icon sa-down gm-icon gm-icon-down"></i>
+                                        </div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                                <th th-name="action" style="width: 100px; max-width: 100px;" align="center" remind="" last-visible="">
+                                    <div class="th-wrap">
+                                        <span class="th-text gm-drag-action ng-scope">
+                                            <span style="color: red">操作</span>
+                                        </span>
+                                        <div class="gm-remind-action">
+                                            <i class="ra-icon gm-icon gm-icon-help"></i>
+                                            <div class="ra-area">the action</div>
+                                        </div>
+                                        <span class="gm-adjust-action"></span>
+                                    </div>
+                                </th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <span class="text-dreamland"></span>
+                <div class="gm-config-area" grid-manager-config="testAngular">
+                    <span class="config-action"><i class="gm-icon gm-icon-close"></i></span>
+                    <div class="config-info">配置列的显示状态</div>
+                    <ul class="config-list"></ul>
+                </div> 
+                    <div class="gm-toolbar" grid-manager-toolbar="testAngular" style="visibility: visible;">
+                        <span class="refresh-action"><i class="gm-icon gm-icon-refresh"></i></span>
+                        <div class="goto-page">跳转至<input type="text" class="gp-input" current-page-info="">页</div>
+                        <div class="change-size">
+                            <div class="gm-dropdown">
+                                <span class="gm-dropdown-text">20</span>
+                                <span class="gm-dropdown-icon"></span>
+                                <ul class="gm-dropdown-list">
+                                    <li value="10">10</li>
+                                    <li value="20">20</li>
+                                    <li value="30">30</li>
+                                    <li value="50">50</li>
+                                    <li value="100">100</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="toolbar-info checked-info">已选 0 条</div>
+                        <div class="toolbar-info page-info">此页显示 1-20<span class="page-info-totals"> 共62条</span></div>
+                        <div class="pagination">
+                            <ul pagination-before="">
+                                <li class="first-page disabled">首页</li>
+                                <li class="previous-page disabled">上一页</li>
+                            </ul>
+                            <ul pagination-number="">
+                                <li class="active">1</li>
+<!--                                <li to-page="2">2</li>-->
+<!--                                <li to-page="3">3</li>-->
+<!--                                <li to-page="4">4</li>-->
+                            </ul>
+                            <ul pagination-after="">
+                                <li class="next-page">下一页</li>
+                                <li class="last-page">尾页</li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //初始化表数据
+        $(document).ready(function () {
+            $.ajax({
+                    type: "get",
+                    url: "http://localhost:9901/getArticleAll",
+                    dataType: "json",
+                    success: function (data) {
+                        var s = "";
+
+                        //先清空表数据
+                        $("#articleData").html("")
+
+                        //循环添加表数据
+                        $.each(data, function (i,val) {
+                            s= "<tr gm-cache-key=\"0\" checked=\"false\">\n" +
+                                "                                <td gm-create=\"\" gm-checkbox=\"\">\n" +
+                                "                                    <label class=\"gm-checkbox-wrapper\">\n" +
+                                "                                        <span class=\"gm-radio-checkbox gm-checkbox\">\n" +
+                                "                                            <input type=\"checkbox\" class=\"gm-radio-checkbox-input gm-checkbox-input\">\n" +
+                                "                                            <span class=\"gm-radio-checkbox-inner gm-checkbox-inner\"></span>\n" +
+                                "                                        </span>\n" +
+                                "                                    </label>\n" +
+                                "                                </td>\n" +
+                                "                                <td gm-create=\"\" gm-order=\"\">"+val.articleid+"</td>\n" +
+                                "                                <td align=\"center\" class=\"ng-scope\">\n" +
+                                "                                    <a target=\"_blank\" style=\"display:block; height:58.5px;\" title=\"点击阅读[表格组件实现打印功能]\" >\n" +
+                                "                                        <img style=\"width:90px;margin:0 auto;\" alt=\"表格组件实现打印功能\" src=\""+val.articleurl+"\">\n" +
+                                "                                    </a>\n" +
+                                "                                </td>\n" +
+                                "                                <td align=\"left\" class=\"ng-scope\">\n" +
+                                "                                    <a class=\"plugin-action ng-binding\" target=\"_blank\"  title=\"点击阅读[表格组件实现打印功能]\" >"+val.title+"</a>\n" +
+                                "                                </td>\n" +
+                                "                                <td align=\"center\" class=\"ng-scope\">\n" +
+                                "                                    <button type=\"button\" class=\"ng-binding\">"+val.tags+"</button>\n" +
+                                "                                </td>\n" +
+                                "                                <td>"+val.content+"</td>\n" +
+                                "                                <td align=\"center\" class=\"ng-scope\">\n" +
+                                "                                    <a class=\"plugin-action ng-binding\" target=\"_blank\" title=\"去看看写个程序换个饼的github\">"+val.author+"</a>\n" +
+                                "                                </td>\n" +
+                                "                                <td class=\"ng-scope\">"+val.publishdate+"</td>\n" +
+                                "                                <td class=\"ng-scope\">"+val.publishdate+"</td>\n" +
+                                "                                <td align=\"center\" class=\"ng-scope\" last-visible=\"\">\n" +
+                                "                                    <a href=\"http://localhost:9901/updateArticle/"+val.articleid+"\"><span class=\"plugin-action\">修改</span></a>\n" +
+                                "                                    <a onclick=\"javascript:return confirm('您确认要发表文章吗？');\" href=\"http://localhost:9901/article/deleteArticle/"+val.articleid+"\"><span class=\"plugin-action\">删除</span></a>\n" +
+                                "                                </td>\n" +
+                                "                            </tr>";
+                            $("#articleData").prepend(s);
+                        })
+
+                        console.log(data)
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                });
+        })
+
+    </script>
+
+
+
+
+</body>
+</html>
+
+
+
+

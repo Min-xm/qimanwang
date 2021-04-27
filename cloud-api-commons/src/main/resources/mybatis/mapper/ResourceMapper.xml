@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.qimanwang.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.xm.qimanwang.entity.Resource">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="res_url1" jdbcType="VARCHAR" property="resUrl1" />
+    <result column="res_url2" jdbcType="VARCHAR" property="resUrl2" />
+    <result column="res_url3" jdbcType="VARCHAR" property="resUrl3" />
+  </resultMap>
+
+</mapper>

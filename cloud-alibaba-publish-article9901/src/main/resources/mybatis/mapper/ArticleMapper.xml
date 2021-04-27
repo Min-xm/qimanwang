@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.qimanwang.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.xm.qimanwang.entity.Article">
+    <id column="articleId" jdbcType="BIGINT" property="articleid" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="originalAuthor" jdbcType="VARCHAR" property="originalauthor" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="publishDate" jdbcType="VARCHAR" property="publishdate" />
+    <result column="updateDate" jdbcType="VARCHAR" property="updatedate" />
+    <result column="articleUrl" jdbcType="VARCHAR" property="articleurl" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.qimanwang.entity.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+
+  <insert id="inArticle">
+    insert into article(articleId,author,originalAuthor,title,publishDate,content,tags,updateDate,articleUrl)
+    value(#{articleid},#{author},#{originalauthor},#{title},#{publishdate},#{content},#{tags},#{updatedate},#{articleurl})
+  </insert>
+
+  <select id="getArticleAll" resultMap="ResultMapWithBLOBs">
+    select * from article
+  </select>
+
+  <select id="getArticleById" resultMap="ResultMapWithBLOBs">
+    select * from article where articleid = #{articleId}
+  </select>
+
+  <select id="selectArticleByTags" resultMap="ResultMapWithBLOBs">
+    select articleId,title,articleUrl from article where tags like concat('%',#{tags},'%')
+  </select>
+
+  <update id="updateArticle" parameterType="com.xm.qimanwang.entity.Article">
+    UPDATE article SET
+    <if test="author != null and author != ''">
+      author= #{author},
+    </if>
+    <if test="originalauthor != null and originalauthor != ''">
+      originalAuthor = #{originalauthor},
+    </if>
+    <if test="title != null and title != ''">
+      title = #{title},
+    </if>
+    <if test="content != null and content != ''">
+      content = #{content},
+    </if>
+    <if test="tags != null and tags != ''">
+      tags = #{tags},
+    </if>
+    <if test="publishdate != null and publishdate != ''">
+      publishDate = #{publishdate},
+    </if>
+    <if test="updatedate != null and updatedate != ''">
+      updateDate = #{updatedate},
+    </if>
+    <if test="articleurl != null and articleurl != ''">
+      articleUrl = #{articleurl},
+    </if>
+    <if test="likes != null and likes != ''">
+      likes = #{likes},
+    </if>
+    articleId = #{articleid} WHERE articleId = #{articleid}
+  </update>
+
+  <delete id="deleteArticleById" parameterType="long">
+    delete from article where articleId = #{articleid}
+  </delete>
+
+</mapper>

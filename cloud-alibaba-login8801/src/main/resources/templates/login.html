@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>柒夜动漫登录</title>
+   <link rel="stylesheet" href="http://localhost:8801/css/style.css">
+<!--  <link rel="stylesheet" href="css/style.css">-->
+
+   <script src="http://localhost:8801/js/jquery-3.4.1.js"></script>
+<!--  <script src="js/jquery-3.4.1.js"></script>-->
+</head>
+<style>
+  #returnInfo {
+    position: fixed;
+    bottom: 50px;
+    font-size: 50px;
+    color: red;
+  }
+</style>
+
+<body>
+<main>
+  <form class="form" action="/loginCheck" method="post">
+    <div class="form__cover"></div>
+    <div class="form__loader">
+      <div class="spinner active">
+        <svg class="spinner__circular" viewBox="25 25 50 50">
+          <circle class="spinner__path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10">
+          </circle>
+        </svg>
+      </div>
+    </div>
+    <div class="form__content">
+      <h1>Authorization</h1>
+      <div class="styled-input">
+        <input id="phone" type="text" class="styled-input__input" name="phone" autocomplete="off"
+               onblur="checkMobile(phone.value);">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">手机号</span> </div>
+        <div class="styled-input__circle"></div>
+        <!-- 输入状态 -->
+        <div class="true"><img src="http://localhost:8801/images/true.png" alt=""></div>
+        <div class="err-tel"><img src="http://localhost:8801/images/warning.png" alt=""></div>
+        <div class="err-telbit"><img src="http://localhost:8801/images/jinggao.png" alt=""></div>
+        <div class="msg-true">输入正确</div>
+        <div class="msg-errphone">请输入正确的手机号</div>
+        <div class="msg-errphonebit">手机号不能为空，必须为11位</div>
+      </div>
+      <div class="styled-input">
+        <input id="password" type="password" class="styled-input__input" name="password" autocomplete="off">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">密码</span> </div>
+        <div class="styled-input__circle"></div>
+      </div>
+      <div class="styled-input" style="width: 62%;">
+        <input id="checkCode" type="text" class="styled-input__input" name="checkCode" autocomplete="off"
+               onblur="checkCheckCode(checkCode.value)">
+        <div class="styled-input__placeholder"> <span class="styled-input__placeholder-text">验证码</span> </div>
+        <div class="styled-input__circle"></div>
+      </div>
+
+      <div onclick="addPic()"
+           style="width: 100px;height: 45px;text-align: center;line-height: 53px;position: absolute;right: -2px;bottom: 186px;">
+        <img id="addPic" src="http://localhost:8801/getCode">
+      </div>
+
+
+
+      <button type="submit" class="styled-button"> <span class="styled-button__real-text-holder"> <span
+              class="styled-button__real-text">Login</span> <span class="styled-button__moving-block face"> <span
+              class="styled-button__text-holder"> <span class="styled-button__text">Login</span> </span> </span><span
+              class="styled-button__moving-block back"> <span class="styled-button__text-holder"> <span
+              class="styled-button__text">Login</span> </span> </span> </span> </button>
+      <button class="styled-button"> <span class="styled-button__real-text-holder"> <span
+              class="styled-button__real-text">Register</span> <span class="styled-button__moving-block face"> <span
+              class="styled-button__text-holder"> <span class="styled-button__text">Register</span> </span>
+            </span><span class="styled-button__moving-block back"> <span class="styled-button__text-holder"> <span
+              class="styled-button__text">Register</span> </span> </span> </span> </button>
+    </div>
+  </form>
+   <span id="returnInfo" th:text="${session.returnInfo}"></span>
+</main>
+<div class="dim-box">
+  <div class="tips">
+    <img src="http://localhost:8801/images/jinggao.png" alt="" class="tips-icon">
+    <span>手机号不能为空</span>
+  </div>
+  <div class="define"><button>确定</button></div>
+</div>
+<div class="bg"></div>
+ <script  src="http://localhost:8801/js/login.js"></script>
+<!--<script src="js/login.js"></script>-->
+
+<script type="text/javascript">
+
+  function addPic() {
+    // 修改图片的src属性  在url后拼接随机数
+    $("#addPic").prop("src", "http://localhost:8801/getCode?hh=" + Math.random())
+  }
+
+  // 模态框确定按钮
+  $(function () {
+    $('.define button').on('click', function () {
+      $('.dim-box,.bg').hide();
+    })
+  })
+
+  //提示手机号不能为空或手机号格式
+  function checkMobile(str) {
+    if (str == "") {
+      $(function () {
+        $('.dim-box,.bg').show();
+      })
+    }
+    else {
+      let re = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str)
+
+      if (!re) {
+        $(function () {
+          $('.tips span').text('请输入正确的手机格式');
+          $('.dim-box,.bg').show();
+        })
+      }
+    }
+  }
+
+  //提示密码不能为空
+  function checkPassWord(str) {
+    if (str == "") {
+      alert("╮(╯▽╰)╭ 请输入密码 ╮(╯▽╰)╭");
+      // console.log("╮(╯▽╰)╭ 请输入密码 ╮(╯▽╰)╭");
+    }
+  }
+
+  //提示验证码
+  function checkCheckCode(str) {
+    if (str == "") {
+      // alert("╮(╯▽╰)╭ 请输入验证码 ╮(╯▽╰)╭");
+      // console.log("╮(╯▽╰)╭ 请输入验证码 ╮(╯▽╰)╭");
+    }
+  }
+
+
+
+</script>
+
+</body>
+
+</html>
