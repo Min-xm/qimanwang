@@ -24,4 +24,8 @@ public interface ArticleService {
     //分类获取不同标签的文章信息
     public Map<String, List<Article>> getArticleByTags(String tags);
 
+    //通过文章标题、文章标签查询和内容查询
+    public List<Article> searchArticle(Article article);
+
+
 }

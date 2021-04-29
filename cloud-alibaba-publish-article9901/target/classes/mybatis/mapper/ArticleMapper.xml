@@ -33,6 +33,17 @@
     select articleId,title,articleUrl from article where tags like concat('%',#{tags},'%')
   </select>
 
+  <select id="selectArticleByTileAndTagsAndContent" resultMap="ResultMapWithBLOBs">
+    select * from article where
+    <if test="title != null and title != ''">
+      title like concat('%',#{title},'%') AND
+    </if>
+    tags like concat('%',#{tags},'%')
+    <if test="content != null and content != ''">
+      AND content like concat('%',#{content},'%')
+    </if>
+  </select>
+
   <update id="updateArticle" parameterType="com.xm.qimanwang.entity.Article">
     UPDATE article SET
     <if test="author != null and author != ''">

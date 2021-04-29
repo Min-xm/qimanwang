@@ -18,34 +18,34 @@
     <div class="search-area">
         <div class="sa-ele">
             <label class="se-title">标题:</label>
-            <input class="se-con ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchForm.title">
+            <input id="title" class="se-con ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchForm.title">
         </div>
         <div class="sa-ele">
             <label class="se-title">文章分类:</label>
-            <select class="se-con ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="searchForm.type">
+            <select id="tags" class="se-con ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="searchForm.type">
                 <option value="-1">请选择</option>
                 <!-- ngRepeat: item in TYPE_MAP track by $index -->
-                <option value="1" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">动漫资讯</option>
+                <option value="资讯" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">动漫资讯</option>
                 <!-- end ngRepeat: item in TYPE_MAP track by $index -->
-                <option value="2" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">图集</option>
+                <option value="图集" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">图集</option>
                 <!-- end ngRepeat: item in TYPE_MAP track by $index -->
-                <option value="3" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope" selected="selected">游戏</option>
+                <option value="游戏" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope" selected="selected">游戏</option>
                 <!-- end ngRepeat: item in TYPE_MAP track by $index -->
-                <option value="4" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">音声</option>
+                <option value="音乐" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">音声</option>
                 <!-- end ngRepeat: item in TYPE_MAP track by $index -->
-                <option value="5" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">漫画</option>
+                <option value="漫画" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">漫画</option>
                 <!-- end ngRepeat: item in TYPE_MAP track by $index -->
-                <option value="6" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">轻小说</option>
+                <option value="轻小说" ng-repeat="item in TYPE_MAP track by $index" class="ng-binding ng-scope">轻小说</option>
                 <!-- end ngRepeat: item in TYPE_MAP track by $index -->
             </select>
         </div>
         <div class="sa-ele">
             <label class="se-title">内容:</label>
-            <input class="se-con ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchForm.content">
+            <input id="content" class="se-con ng-pristine ng-untouched ng-valid ng-empty" ng-model="searchForm.content">
         </div>
         <div class="sa-ele">
-            <button class="search-action" ng-click="onSearch()">搜索</button>
-            <button class="reset-action" ng-click="onReset()">重置</button>
+            <button class="search-action" ng-click="onSearch()" onclick="onclickSearch()">搜索</button>
+            <button class="reset-action" ng-click="onReset()" onclick="start()">重置</button>
         </div>
     </div>
 
@@ -280,9 +280,11 @@
 
 
     <script type="text/javascript">
+
         //初始化表数据
-        $(document).ready(function () {
-            $.ajax({
+        function start() {
+            $(document).ready(function () {
+                $.ajax({
                     type: "get",
                     url: "http://localhost:9901/getArticleAll",
                     dataType: "json",
@@ -335,7 +337,77 @@
                         console.log(data)
                     }
                 });
-        })
+            })
+        }
+        start();
+
+
+        //搜索点击按钮事件
+        function onclickSearch() {
+            const title = $('#title').val();
+            const tags = $('#tags').val();
+            const content = $('#content').val();
+
+            $.ajax({
+                type: "get",
+                url: "http://localhost:9901/article/search",
+                data:{
+                    "title":title,
+                    "tags":tags,
+                    "content":content
+                },
+                dataType: "json",
+                success: function (data) {
+                    var s = "";
+
+                    //先清空表数据
+                    $("#articleData").html("")
+
+                    //循环添加表数据
+                    $.each(data.article, function (i,val) {
+                        s= "<tr gm-cache-key=\"0\" checked=\"false\">\n" +
+                            "                                <td gm-create=\"\" gm-checkbox=\"\">\n" +
+                            "                                    <label class=\"gm-checkbox-wrapper\">\n" +
+                            "                                        <span class=\"gm-radio-checkbox gm-checkbox\">\n" +
+                            "                                            <input type=\"checkbox\" class=\"gm-radio-checkbox-input gm-checkbox-input\">\n" +
+                            "                                            <span class=\"gm-radio-checkbox-inner gm-checkbox-inner\"></span>\n" +
+                            "                                        </span>\n" +
+                            "                                    </label>\n" +
+                            "                                </td>\n" +
+                            "                                <td gm-create=\"\" gm-order=\"\">"+val.articleid+"</td>\n" +
+                            "                                <td align=\"center\" class=\"ng-scope\">\n" +
+                            "                                    <a target=\"_blank\" style=\"display:block; height:58.5px;\" title=\"点击阅读[表格组件实现打印功能]\" >\n" +
+                            "                                        <img style=\"width:90px;margin:0 auto;\" alt=\"表格组件实现打印功能\" src=\""+val.articleurl+"\">\n" +
+                            "                                    </a>\n" +
+                            "                                </td>\n" +
+                            "                                <td align=\"left\" class=\"ng-scope\">\n" +
+                            "                                    <a class=\"plugin-action ng-binding\" target=\"_blank\"  title=\"点击阅读[表格组件实现打印功能]\" >"+val.title+"</a>\n" +
+                            "                                </td>\n" +
+                            "                                <td align=\"center\" class=\"ng-scope\">\n" +
+                            "                                    <button type=\"button\" class=\"ng-binding\">"+val.tags+"</button>\n" +
+                            "                                </td>\n" +
+                            "                                <td>"+val.content+"</td>\n" +
+                            "                                <td align=\"center\" class=\"ng-scope\">\n" +
+                            "                                    <a class=\"plugin-action ng-binding\" target=\"_blank\" title=\"去看看写个程序换个饼的github\">"+val.author+"</a>\n" +
+                            "                                </td>\n" +
+                            "                                <td class=\"ng-scope\">"+val.publishdate+"</td>\n" +
+                            "                                <td class=\"ng-scope\">"+val.publishdate+"</td>\n" +
+                            "                                <td align=\"center\" class=\"ng-scope\" last-visible=\"\">\n" +
+                            "                                    <a href=\"http://localhost:9901/updateArticle/"+val.articleid+"\"><span class=\"plugin-action\">修改</span></a>\n" +
+                            "                                    <a onclick=\"javascript:return confirm('您确认要发表文章吗？');\" href=\"http://localhost:9901/article/deleteArticle/"+val.articleid+"\"><span class=\"plugin-action\">删除</span></a>\n" +
+                            "                                </td>\n" +
+                            "                            </tr>";
+                        $("#articleData").prepend(s);
+                    })
+
+                    console.log(data)
+                },
+                error: function (data) {
+                    console.log("没有数据返回")
+                    console.log(data)
+                }
+            });
+        }
 
     </script>
 

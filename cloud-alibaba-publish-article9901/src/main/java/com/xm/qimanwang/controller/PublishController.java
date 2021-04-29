@@ -6,14 +6,16 @@ import com.xm.qimanwang.services.ArticleService;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +33,9 @@ public class PublishController {
 
     @GetMapping("/test")
     @ResponseBody
-    public Object test(HttpSession session){
-        System.out.println(session.getAttribute("MyUser"));
-        return "测试";
+    public Object test(){
+       List<Article> articles = articleMapper.selectArticleByTileAndTagsAndContent("猫","资讯","");
+        return articles;
     }
 
 
@@ -146,6 +148,50 @@ public class PublishController {
     public Map<String,List<Article>> getArticleAllByTags(@PathVariable String tags){
         Map<String, List<Article>> map = articleServiceImp.getArticleByTags(tags);
         return map;
+    }
+
+    @GetMapping("/article/search")
+    @ResponseBody
+    //查询文章数据
+    public Map<String,Object> searchArticle(Article article){
+        Map<String,Object> map = new HashMap<>();
+        //索引标题
+        String title = article.getTitle();
+        //索引标签
+        String  tags = article.getTags();
+        //索引内容
+        String content = article.getContent();
+        //保存索引对象
+        List<Article> articles;
+        if (title!=null&&!title.isEmpty() || content!=null&&!content.isEmpty()){
+            articles = articleServiceImp.searchArticle(article);
+            map.put("msg","模糊查询成功");
+            map.put("code","200");
+            map.put("article",articles);
+        }else if (tags==null||title.isEmpty() && content==null||content.isEmpty()){
+            articles = articleServiceImp.searchArticle(article);
+            map.put("msg","按标题查询");
+            map.put("code","200");
+            map.put("article",articles);
+        } else {
+            map.put("msg","没有数据返回");
+            map.put("code","400");
+            map.put("article","{}");
+        }
+        return map;
+    }
+
+
+    //文件上传
+    @PostMapping("/upload")
+    @ResponseBody
+    public String UploadFiles(@RequestParam("file")MultipartFile file){
+        if (file.isEmpty()) {
+            System.out.println("上传失败，请选择文件");
+            return "上传失败，请选择文件";
+        }
+        System.out.println("上传文件成功");
+        return "上传文件成功";
     }
 
 }

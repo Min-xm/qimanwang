@@ -97,4 +97,19 @@ public class ArticleServiceImpl implements ArticleService {
             return map;
         }
     }
+
+    @Override
+    public List<Article> searchArticle(Article article) {
+        List<Article> list;
+        if (article.getContent()==null){
+            list = articleMapper.selectArticleByTileAndTagsAndContent(article.getTitle(),article.getTags(),null);
+        }else if(article.getTitle()==null){
+            list = articleMapper.selectArticleByTileAndTagsAndContent(null,article.getTags(),article.getContent());
+        }else if(article.getTitle()==null && article.getContent()==null){
+            list = articleMapper.selectArticleByTileAndTagsAndContent(null,article.getTags(),null);
+        }else{
+            list = articleMapper.selectArticleByTileAndTagsAndContent(article.getTitle(),article.getTags(),article.getContent());
+        }
+        return list;
+    }
 }

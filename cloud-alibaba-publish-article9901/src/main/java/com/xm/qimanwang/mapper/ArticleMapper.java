@@ -24,4 +24,7 @@ public interface ArticleMapper {
 
     //模糊限制查询文章
     public List<Article> selectArticleByTags(String tags);
+
+    //通过文章标题、文章标签查询和内容查询
+    public List<Article> selectArticleByTileAndTagsAndContent(String title,String tags,String content);
 }
