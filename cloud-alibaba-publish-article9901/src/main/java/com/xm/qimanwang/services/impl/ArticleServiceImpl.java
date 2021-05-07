@@ -101,6 +101,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    //搜素
     public List<Article> searchArticle(Article article) {
         List<Article> list;
         if (article.getContent()==null){
