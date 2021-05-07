@@ -15,6 +15,7 @@
         <module>cloud-alibaba-publish-article9901</module>
         <module>cloud-alibaba-admin7701</module>
         <module>cloud-alibaba-comment6601</module>
+        <module>cloud-consumer8081</module>
     </modules>
 
     <packaging>pom</packaging>

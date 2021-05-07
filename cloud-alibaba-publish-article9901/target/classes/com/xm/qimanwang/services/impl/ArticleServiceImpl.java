@@ -86,10 +86,12 @@ public class ArticleServiceImpl implements ArticleService {
             List<Article> list2 = articleMapper.selectArticleByTags("图集");
             List<Article> list3 = articleMapper.selectArticleByTags("资讯");
             List<Article> list4 = articleMapper.selectArticleByTags("游戏");
+            List<Article> list5 = articleMapper.selectArticleByTags("漫画轻小说");
             map.put("音声",list1);
             map.put("图集",list2);
             map.put("资讯",list3);
             map.put("游戏",list4);
+            map.put("漫画轻小说",list5);
             return map;
         }else{
             List<Article> list = articleMapper.selectArticleByTags(tags);

@@ -34,8 +34,7 @@ public class PublishController {
     @GetMapping("/test")
     @ResponseBody
     public Object test(){
-       List<Article> articles = articleMapper.selectArticleByTileAndTagsAndContent("猫","资讯","");
-        return articles;
+       return null;
     }
 
 
@@ -79,11 +78,23 @@ public class PublishController {
         return "/sound";
     }
 
+    @GetMapping("/comicNovel")
+    public String goComicNovel(){
+        return "/ComicNovel";
+    }
+
+    @GetMapping("/picture")
+    public String goPicture(){
+        return "/picture";
+    }
+
     @GetMapping("/getArticle")
     @ResponseBody
     public List<Article> getArticle(){
         return articleMapper.getArticleAll();
     }
+
+
 
     @GetMapping("/getArticleAll")
     @ResponseBody
@@ -193,5 +204,7 @@ public class PublishController {
         System.out.println("上传文件成功");
         return "上传文件成功";
     }
+
+
 
 }

@@ -11,6 +11,7 @@
         <module name="cloud-gateyway-service9527" />
         <module name="cloud-api-commons" />
         <module name="cloud-alibaba-comment6601" />
+        <module name="cloud-consumer8081" />
         <module name="cloudalibaba-sentinel-service8401" />
         <module name="cloud-alibaba-publish-article9901" />
         <module name="cloud-alibaba-admin7701" />
@@ -24,6 +25,7 @@
       <module name="cloud-alibaba-login8801" options="-parameters" />
       <module name="cloud-alibaba-publish-article9901" options="-parameters" />
       <module name="cloud-api-commons" options="-parameters" />
+      <module name="cloud-consumer8081" options="-parameters" />
       <module name="cloud-gateyway-service9527" options="-parameters" />
       <module name="cloudalibaba-sentinel-service8401" options="-parameters" />
     </option>

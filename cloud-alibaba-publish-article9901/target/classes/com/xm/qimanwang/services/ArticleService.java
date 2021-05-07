@@ -5,6 +5,7 @@ import com.xm.qimanwang.entity.Article;
 import java.util.List;
 import java.util.Map;
 
+
 public interface ArticleService {
     //添加一条文章记录
     public Boolean addArticle(Article article);
