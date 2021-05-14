@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.qimanwang.mapper.LikeMapper">
+  <resultMap id="BaseResultMap" type="com.xm.qimanwang.entity.Like">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="judge" jdbcType="INTEGER" property="judge" />
+  </resultMap>
+
+  <select id="getLike" resultMap="BaseResultMap">
+    select * from likes
+  </select>
+
+  <select id="getLikeByUserIdAndArticleId" resultMap="BaseResultMap">
+    select * from likes where phone = #{phone} and article_id = #{articleID}
+  </select>
+
+  <insert id="inLike">
+    insert into likes(article_id,phone,judge) values(#{articleId},#{phone},#{judge})
+  </insert>
+
+  <update id="updateLike">
+    update likes set judge = #{judge} where article_id=#{articleId} and phone=#{phone}
+  </update>
+
+</mapper>
