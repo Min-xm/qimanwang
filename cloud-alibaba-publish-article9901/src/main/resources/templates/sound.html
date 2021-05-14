@@ -30,6 +30,9 @@
     <!-- 搜索栏样式 -->
     <!-- <link rel="stylesheet" type="text/css" href="css/search-form.css"> -->
 
+    <!-- 分页样式引入 -->
+    <link rel="stylesheet" type="text/css" href="http://localhost:9901/css/page.css">
+
 
     <script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 
@@ -450,6 +453,14 @@
         </div><!-- 音声资讯模块结尾 -->
 
 
+        <!-- 分页模块 -->
+        <div style="text-align: center;position: relative;bottom: -625px;">
+            <div id="pager" class="pager clearfix">
+            </div>
+        </div>
+        <script src="http://localhost:9901/js/jquery.z-pager.js"></script>
+
+
 
         <!-- 右侧小火箭图标返回顶部 -->
         <div id="rocket" style="display: none;">
@@ -468,6 +479,20 @@
 
 
         <script type="text/javascript">
+
+            $("#pager").zPager({
+                totalData: 50,
+                htmlBox: $('#wraper'),
+                btnShow: true,
+                ajaxSetData: false
+            });
+
+            function currentPage(currentPage){
+                /*
+                    触发页码数位置： Page/js/jquery.z-pager.js 64行
+                */
+                console.log("当前页码数：" + currentPage);
+            }
 
 
             $(function(){

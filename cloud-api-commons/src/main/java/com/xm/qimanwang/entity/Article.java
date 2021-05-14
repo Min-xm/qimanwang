@@ -1,6 +1,8 @@
 package com.xm.qimanwang.entity;
 
-public class Article {
+import java.io.Serializable;
+
+public class Article  implements Serializable {
     private Long articleid;
 
     private String author;

@@ -26,7 +26,6 @@ spring:
 #  thymeleaf:
 #    cache: false
 
-
 management:
   endpoints:
     web:

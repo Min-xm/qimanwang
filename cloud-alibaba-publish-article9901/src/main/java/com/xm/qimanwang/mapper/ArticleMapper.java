@@ -27,4 +27,5 @@ public interface ArticleMapper {
 
     //通过文章标题、文章标签查询和内容查询
     public List<Article> selectArticleByTileAndTagsAndContent(String title,String tags,String content);
+
 }

@@ -1,8 +1,10 @@
 package com.xm.qimanwang.controller;
 
 import com.xm.qimanwang.entity.Article;
+import com.xm.qimanwang.entity.Like;
 import com.xm.qimanwang.mapper.ArticleMapper;
 import com.xm.qimanwang.services.ArticleService;
+import com.xm.qimanwang.services.LikesService;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +27,14 @@ public class PublishController {
     @Resource
     ArticleService articleServiceImp;
 
+    @Resource
+    LikesService likesService;
+
 
     @GetMapping("/test")
     @ResponseBody
     public Object test(){
+
        return null;
     }
 
@@ -202,7 +203,19 @@ public class PublishController {
             return "上传失败，请选择文件";
         }
         System.out.println("上传文件成功");
+
         return "上传文件成功";
+    }
+
+
+    //文章点赞
+    @PostMapping("/article/like")
+    @ResponseBody
+    public String likes(Like like){
+        System.out.println(like.getPhone());
+        System.out.println(like.getArticleId());
+        String status = likesService.like(like.getPhone(), like.getArticleId());
+        return status;
     }
 
 

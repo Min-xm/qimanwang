@@ -80,4 +80,5 @@
     delete from article where articleId = #{articleid}
   </delete>
 
+
 </mapper>

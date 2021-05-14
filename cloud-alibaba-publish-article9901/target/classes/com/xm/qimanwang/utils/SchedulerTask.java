@@ -12,10 +12,10 @@ public class SchedulerTask {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     //每隔2秒执行一次
-    @Scheduled(cron = "0 0/1 15 * * ?")
-    public void testTasks() {
-        System.out.println("定时任务执行时间：" + dateFormat.format(new Date()));
-    }
+//    @Scheduled(cron = "0 0/1 15 * * ?")
+//    public void testTasks() {
+//        System.out.println("定时任务执行时间：" + dateFormat.format(new Date()));
+//    }
 
     //每天3：05执行
 //    @Scheduled(cron = "0 05 03 ? * *")

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xm.qimanwang.PublishArticleMain9901;
 import com.xm.qimanwang.entity.Article;
 import com.xm.qimanwang.mapper.ArticleMapper;
+import com.xm.qimanwang.mapper.LikeMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,11 +50,13 @@ public class UnitTest {
 
     @Resource
     private ArticleMapper articleMapper;
+    @Resource
+    private LikeMapper likeMapper;
 
 
     @Test
     public void conflictTime() {
-        System.out.println(articleMapper.getArticleAll());
+        System.out.println(likeMapper.getLikeByUserIdAndArticleId("",458171613803403L).getJudge());
     }
 
 

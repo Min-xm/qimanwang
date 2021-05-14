@@ -1,5 +1,7 @@
 package com.xm.qimanwang.services.impl;
 
+import com.alicp.jetcache.anno.Cached;
+import com.alicp.jetcache.anno.CreateCache;
 import com.xm.qimanwang.entity.Article;
 import com.xm.qimanwang.mapper.ArticleMapper;
 import com.xm.qimanwang.services.ArticleService;
@@ -14,6 +16,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     private ArticleMapper articleMapper;
+
 
 
     @Override
@@ -101,6 +104,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    //搜素
     public List<Article> searchArticle(Article article) {
         List<Article> list;
         if (article.getContent()==null){
